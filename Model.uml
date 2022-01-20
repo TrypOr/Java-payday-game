@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Model</OriginalElement>
+  <nodes>
+    <node x="1176.0" y="1013.0">Model.Dice.Dice</node>
+    <node x="767.0" y="1013.0">Model.CardDecks.RejectedCards</node>
+    <node x="0.0" y="1013.0">Model.CardDecks.MessageCardDeck</node>
+    <node x="0.0" y="879.5">Model.Tiles.DealTile</node>
+    <node x="875.25" y="262.0">Model.Card.MessageCard</node>
+    <node x="1111.0" y="891.0">Model.Tiles.RadioContestTile</node>
+    <node x="442.0" y="891.0">Model.Tiles.StartTile</node>
+    <node x="250.0" y="412.0">Model.Card.MoveTo</node>
+    <node x="1003.0" y="412.0">Model.Card.PayTheNeighbor</node>
+    <node x="1259.0" y="412.0">Model.Card.Advertisment</node>
+    <node x="254.0" y="879.5">Model.Tiles.BuyerTile</node>
+    <node x="595.0" y="879.5">Model.Tiles.YardSaleTile</node>
+    <node x="1760.0" y="879.5">Model.Tiles.SweepstakesTile</node>
+    <node x="1016.0" y="0.0">Model.Card.Card</node>
+    <node x="1478.0" y="412.0">Model.Card.Bill</node>
+    <node x="714.0" y="412.0">Model.Card.TakeFromTheNeighbor</node>
+    <node x="1114.25" y="239.0">Model.Card.DealCard</node>
+    <node x="1022.0" y="608.0">Model.Tiles.Tiles</node>
+    <node x="857.0" y="879.5">Model.Tiles.FamilyCasinoNightTile</node>
+    <node x="1552.0" y="879.5">Model.Tiles.PayDayTile</node>
+    <node x="1331.0" y="868.0">Model.Tiles.MailTile</node>
+    <node x="1975.0" y="879.5">Model.Tiles.LotteryTile</node>
+    <node x="0.0" y="0.0">Model.Player.Player</node>
+    <node x="563.0" y="1013.0">Model.Jackpot.Jackpot</node>
+    <node x="293.0" y="1013.0">Model.CardDecks.DealCardDeck</node>
+    <node x="473.0" y="412.0">Model.Card.Charity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Model.Tiles.MailTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-50.0" />
+      <point x="1431.5" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Card.Advertisment" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1358.5" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Card.TakeFromTheNeighbor" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="848.5" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Card.MessageCard" target="Model.Card.Card" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="984.75" y="214.0" />
+      <point x="1103.5" y="214.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="Model.Tiles.StartTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="508.5" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Tiles.SweepstakesTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1857.5" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Card.MoveTo" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="351.5" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Card.PayTheNeighbor" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1121.0" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Tiles.RadioContestTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-27.0" />
+      <point x="1211.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Tiles.PayDayTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1646.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Card.DealCard" target="Model.Card.Card" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.5" />
+      <point x="1222.25" y="214.0" />
+      <point x="1103.5" y="214.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="Model.Tiles.FamilyCasinoNightTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="974.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Card.Bill" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1565.5" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Tiles.DealTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="117.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Tiles.YardSaleTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="716.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Card.Charity" target="Model.Card.MessageCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="583.5" y="387.0" />
+      <point x="984.75" y="387.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="Model.Tiles.BuyerTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="338.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Model.Tiles.LotteryTile" target="Model.Tiles.Tiles" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="2098.0" y="843.0" />
+      <point x="1092.5" y="843.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6233824185631415" showDependencies="false" x="1110.5" y="578.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
