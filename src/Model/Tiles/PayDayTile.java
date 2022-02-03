@@ -56,7 +56,7 @@ public class PayDayTile extends Tiles{
                 p.setMoney(-p.getLoan());
                 p.setLoan(-p.getLoan());
             }
-        }else
+        }else if(LoanChoice==1)
         {
             if(p.getLoan()/2>p.getMoney())
             {
@@ -67,6 +67,8 @@ public class PayDayTile extends Tiles{
                 p.setMoney(-p.getLoan()/2);
                 p.setLoan(-p.getLoan()/2);
             }
+        }else{
+
         }
 
         if(p.getAvailableMonths()<=0)

@@ -26,7 +26,7 @@ public class Dice {
      * @return
      */
     public int setRoll() {
-        int Diceroll=1+(int)(Math.random()*6+1);
+        int Diceroll=(int)(Math.random()*6)+1;
         hasrolled=true;
         roll=Diceroll;
         return Diceroll;

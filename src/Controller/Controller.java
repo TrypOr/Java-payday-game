@@ -220,8 +220,12 @@ public class Controller {
      * Function that chooses which player goes first according to their rolls
      */
     public void initialize_GoesFirst(int rollp1,int rollp2){
-        if(rollp1>rollp2) p1.setTurn(true);
-        else p2.setTurn(true);
+        if(rollp1>rollp2){
+            p1.setTurn(true);
+        }
+        else{
+            p2.setTurn(true);
+        }
     }
     /**
      * Function that finishes the game if both players have reached the end of the last montrh
@@ -232,7 +236,7 @@ public class Controller {
     }
     /**
      * Function that calculates the winner according to their money ,loans and bills
-     * @return
+     * @return s a string with the result
      */
     public String GameWinner(){
         String s;
@@ -261,7 +265,6 @@ public class Controller {
             p.setLoan(500);
             p.setMoney(500);
         }
-
         switch (choice) {
             case 0:
                 if(p.getDice().getRollNumber()==1||p.getDice().getRollNumber()==2)
@@ -305,11 +308,13 @@ public class Controller {
     public String[] Infobox() {
 
         String arrayInfos[]=new String [2];
-        if(p1.getAvailableMonths()>p2.getAvailableMonths())  arrayInfos[0]=p1.getAvailableMonths() + " Months remaining to play";
+        if(p1.getAvailableMonths()>p2.getAvailableMonths())  {
+            arrayInfos[0]=p1.getAvailableMonths() + " Months remaining to play";
+        }
         else  arrayInfos[0]=p2.getAvailableMonths() + " Months remaining to play";
 
-        if(p1.getTurn()) arrayInfos[1]="Turn: A has turn";
-        else if(p2.getTurn())arrayInfos[1]="Turn: B has turn";
+        if(p1.getTurn()) arrayInfos[1]="Turn: P1 has turn";
+        else if(p2.getTurn())arrayInfos[1]="Turn: P2 has turn";
 
         return arrayInfos;
     }

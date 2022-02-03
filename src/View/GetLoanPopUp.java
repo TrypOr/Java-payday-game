@@ -6,10 +6,8 @@ import javax.swing.ImageIcon;
  * Dialog that appears when players choses to get a loan
  */
 public class GetLoanPopUp {
-    int choice;
     ImageIcon imageicon;
     String loan;
-    ClassLoader cldr = this.getClass().getClassLoader();
     /**
      * <b>constructor</b>: Constructs a new GamePhasePopUp <b/>
      */

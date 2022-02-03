@@ -22,7 +22,5 @@ public class BuyerTile extends Tiles{
      * <b>Postcondition:</b>Player's money have changed if he sold something
      * @param p the player on the tile
      */
-    public void TileAction(Player p) {
 
-    }
 }

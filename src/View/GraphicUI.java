@@ -14,15 +14,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class GraphicUI extends JFrame {
-
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private final int width = (int) Math.round(screenSize.getWidth()) - 300;
+    private final int height = (int) Math.round(screenSize.getHeight()) - 300;
     private JLayeredPaneExtension BasePanel;
     Controller game;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final int width = (int) Math.round(screenSize.getWidth()) -300;
-    private final int height = (int) Math.round(screenSize.getHeight())-300;
     private int counter = 0;
-    private boolean RadioPos = false;
-    private boolean LotteryPos = false;
+    private boolean isRadio = false;
+    private boolean isLottery = false;
     private final ClassLoader cldr;
     private URL imgURL;
     private Image image;
@@ -66,7 +65,7 @@ public class GraphicUI extends JFrame {
      * <b>constructor</b>: Constructs the graphic UI creating all the buttons,panels etc
      * and initializes some of them
      * b>postconditions</b>: Creates a new Window and initializes some buttons and panels
-     * 	 * starting a new game.
+     * * starting a new game.
      */
     public GraphicUI() {
         game = new Controller();
@@ -110,7 +109,6 @@ public class GraphicUI extends JFrame {
         DealCardsB = new JButton();
         DiceP1 = new JButton();
         DiceP2 = new JButton();
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(new Color(0, 102, 0));
         this.setResizable(false);
@@ -125,7 +123,6 @@ public class GraphicUI extends JFrame {
     /**
      * <b>transformer(mutative)</b>:initializes some buttons and labels <br />
      * <p><b>Postcondition:</b> initializes some buttons and labels </p>
-     *
      */
     private void init_Components() {
         DealCards.setSize(width * (2 / 16) - 40, height * 1 / 7);
@@ -186,7 +183,9 @@ public class GraphicUI extends JFrame {
         StartAll();
     }
 
-    /**<b>Accessor:</b>Shows the Mail card
+    /**
+     * <b>Accessor:</b>Shows the Mail card
+     *
      * @param MailCard the card we want to show
      */
     public void showMailCard(Card MailCard) {
@@ -198,25 +197,24 @@ public class GraphicUI extends JFrame {
         image = new ImageIcon(imageURL2).getImage();
         image = image.getScaledInstance(200, 200, java.awt.Image.SCALE_SMOOTH);
 
-        JOptionPane p = new JOptionPane();
         if (MailCard instanceof PayTheNeighbor) {
             Type = "Πλήρωσε το γείτονα";
             CardText = "Πλήρωσε " + MailCard.getMoney() + " Ευρώ στον αντίπαλο";
-        } else if (MailCard instanceof TakeFromTheNeighbor) {
-            Type = "Πάρε λεφτά από τον γείτονα";
-            CardText = "Πάρε " + MailCard.getMoney() + " Ευρώ από τον αντίπαλο";
-        } else if (MailCard instanceof Charity) {
-            Type = "Φιλανθρωπία";
-            CardText = "Πλήρωσε " + MailCard.getMoney() + " Ευρώ στο Jackpot";
-        } else if (MailCard instanceof Bill) {
-            Type = "Εξόφληση λογαριασμού";
-            CardText = "Κράτα το λογαριασμό";
-        } else if (MailCard instanceof MoveTo) {
-            Type = "Μετακίνηση σε θέση Συμφωνίας/Αγοραστή";
-            CardText = "Εντάξει";
         } else if (MailCard instanceof Advertisment) {
             Type = "Διαφήμιση";
             CardText = "Εντάξει";
+        } else if (MailCard instanceof MoveTo) {
+            Type = "Μετακίνηση σε θέση Συμφωνίας/Αγοραστή";
+            CardText = "Εντάξει";
+        } else if (MailCard instanceof Bill) {
+            Type = "Εξόφληση λογαριασμού";
+            CardText = "Κράτα το λογαριασμό";
+        } else if (MailCard instanceof Charity) {
+            Type = "Φιλανθρωπία";
+            CardText = "Πλήρωσε " + MailCard.getMoney() + " Ευρώ στο Jackpot";
+        } else if (MailCard instanceof TakeFromTheNeighbor) {
+            Type = "Πάρε λεφτά από τον γείτονα";
+            CardText = "Πάρε " + MailCard.getMoney() + " Ευρώ από τον αντίπαλο";
         }
         Object[] options = {CardText};
         int n = JOptionPane.showOptionDialog(this,
@@ -228,6 +226,7 @@ public class GraphicUI extends JFrame {
                 options,
                 options[0]);
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some actions after a card button has been pushed<br />
      * <p><b>Postcondition:</b> doing some actions after a card button has been pushed</p>
@@ -250,8 +249,7 @@ public class GraphicUI extends JFrame {
                         game.RejectedCards.rejectedCard_return(game.MessageDeck, game.DealDeck);
                     }
                     DealCard myCard = game.DealDeck.getCard();
-                    if (showDealCard(myCard, "show") == 0)
-                    {
+                    if (showDealCard(myCard, "show") == 0) {
                         if (myCard.getMoney() > PlayerCards.getMoney()) {
                             InfoboxInformation("Must get loan to buy this Card");
                             GetLoanPopUp loan = new GetLoanPopUp();
@@ -308,10 +306,10 @@ public class GraphicUI extends JFrame {
             }
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:initializes labels for the board <br />
      * <p><b>Postcondition:</b> initializes labels for the board </p>
-     *
      */
     public void initialize_board_graphics() {
 
@@ -342,10 +340,10 @@ public class GraphicUI extends JFrame {
             Tiles[i].add(pawn_position[i]);
             table.add(Tiles[i]);
         }
-
+        //Create jackpotpanel
         jackPotPanel.setLayout(new BoxLayout(jackPotPanel, BoxLayout.Y_AXIS));
         jackPotPanel.setOpaque(false);
-
+        //Create jackpottext
         JackpotInformation();
         jackPotText.setEditable(false);
         jackPotText.setOpaque(false);
@@ -363,30 +361,30 @@ public class GraphicUI extends JFrame {
         table.add(dummy);
         table.add(jackPotPanel);
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some actions after the mail card button has been pushed<br />
      * <p><b>Postcondition:</b> doing some actions after the mail card button has been pushed</p>
      */
     public void MessageCardAction(Player player, MessageCard C) {
         if (C instanceof Advertisment) {
-
         } else if (C instanceof Bill) {
             Bill myCard = (Bill) C;
             myCard.CardAction(player);
             InfoboxInformation("Bills added");
             PlayerInformation();
-        } else if (C instanceof Charity) {
-            Charity myCard = (Charity) C;
-            myCard.CardAction(player, game.JackpotSize);
-            InfoboxInformation("Charity paid");
-            PlayerInformation();
-            JackpotInformation();
         } else if (C instanceof TakeFromTheNeighbor) {
             TakeFromTheNeighbor myCard = (TakeFromTheNeighbor) C;
             myCard.CardAction(player);
             InfoboxInformation("Player " + player.getName() + " got the money");
             PlayerInformation();
 
+        } else if (C instanceof Charity) {
+            Charity myCard = (Charity) C;
+            myCard.CardAction(player, game.JackpotSize);
+            InfoboxInformation("Charity paid");
+            PlayerInformation();
+            JackpotInformation();
         } else if (C instanceof MoveTo) {
             MoveTo myCard = (MoveTo) C;
             pawn_position[player.getPosition()].removeAll();
@@ -406,6 +404,7 @@ public class GraphicUI extends JFrame {
             PlayerInformation();
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some actions after a certain tile has been stepped on by the pawn<br />
      * <p><b>Postcondition:</b> doing some actions after a certain tile has been stepped on by the pawn</p>
@@ -416,7 +415,7 @@ public class GraphicUI extends JFrame {
             p.set_HasPlayed(true);
         } else if (game.table[game.p1.getPosition()] instanceof RadioContestTile && game.p1.getTurn() ||
                 game.table[game.p1.getPosition()] instanceof RadioContestTile && game.p2.getTurn()) {
-            RadioPos = true;
+            isRadio = true;
             DiceP1.setEnabled(true);
             DiceP2.setEnabled(true);
             InfoboxInformation("Throw the dice");
@@ -424,7 +423,7 @@ public class GraphicUI extends JFrame {
             game.p2.getDice().setRolled(false);
         } else if (game.table[game.p1.getPosition()] instanceof LotteryTile && game.p1.getTurn()
                 || game.table[game.p2.getPosition()] instanceof LotteryTile && game.p2.getTurn()) {
-            LotteryPos = true;
+            isLottery = true;
             ArrayList<Object> opt = new ArrayList();
             opt.add("1");
             opt.add("2");
@@ -503,6 +502,7 @@ public class GraphicUI extends JFrame {
             }
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some actions after the pawn is on day Thursday<br />
      * <p><b>Postcondition:</b> doing some actions after the pawn is on day Thursday</p>
@@ -511,14 +511,13 @@ public class GraphicUI extends JFrame {
         int result;
         if (game.table[p.getPosition()].isThursday()) {
             ThursdayCryptoPopUp crypto = new ThursdayCryptoPopUp();
-            if(p.getDice().getRollNumber()==1||p.getDice().getRollNumber()==2)
-            {
+            if (p.getDice().getRollNumber() == 1 || p.getDice().getRollNumber() == 2) {
                 p.setMoney(-300);
-                result=-1;
-            }else if(p.getDice().getRollNumber()==3||p.getDice().getRollNumber()==4) {
-                result=0;
-            }else{
-                result=1;
+                result = -1;
+            } else if (p.getDice().getRollNumber() == 3 || p.getDice().getRollNumber() == 4) {
+                result = 0;
+            } else {
+                result = 1;
                 p.setMoney(600);
             }
             if (game.CreateThursdayCrypto(p, crypto.getChoice())) {
@@ -530,6 +529,7 @@ public class GraphicUI extends JFrame {
         }
 
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some actions after the pawn is on day Sunday<br />
      * <p><b>Postcondition:</b> doing some actions after the pawn is on day Sunday</p>
@@ -545,6 +545,7 @@ public class GraphicUI extends JFrame {
             PlayerInformation();
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:Updates jackpot information<br />
      * <p><b>Postcondition:</b> Updates jackpot information</p>
@@ -552,6 +553,7 @@ public class GraphicUI extends JFrame {
     private void JackpotInformation() {
         jackPotText.setText("Jackpot: " + game.JackpotSize.getjackpotSize() + " Euros");
     }
+
     /**
      * <b>transformer(mutative)</b>:Updates pawn information<br />
      * <p><b>Postcondition:</b> Updates pawn information</p>
@@ -570,9 +572,12 @@ public class GraphicUI extends JFrame {
         Tiles[position].paintComponents(g1);
         Tiles[position].repaint();
     }
-    /**<b>Accessor:</b>Shows the Deal card
+
+    /**
+     * <b>Accessor:</b>Shows the Deal card
+     *
      * @param dealcard the card we want to show
-     * @param choice players choice about what to do
+     * @param choice   players choice about what to do
      */
     public int showDealCard(DealCard dealcard, String choice) {
         System.out.println(dealcard);
@@ -606,10 +611,10 @@ public class GraphicUI extends JFrame {
         return n;
 
     }
+
     /**
      * <b>transformer(mutative)</b>:initializes labels for the infobox <br />
      * <p><b>Postcondition:</b> initializes labels for the infobox</p>
-     *
      */
     private void initialize_Infobox() {
         InfoBox.setBounds((width * 6 / 8) + 30, height * 1 / 3, width * 2 / 8 - 50, P1.getHeight() / 2 + 20);
@@ -641,6 +646,7 @@ public class GraphicUI extends JFrame {
         InfoBox.add(turn);
         InfoBox.add(command);
     }
+
     /**
      * <b>transformer(mutative)</b>:Updates infobox information<br />
      * <p><b>Postcondition:</b> Updates infobox information</p>
@@ -651,6 +657,7 @@ public class GraphicUI extends JFrame {
         turn.setText(game.Infobox()[1]);
         command.setText(commandtxt);
     }
+
     /**
      * <b>transformer(mutative)</b>:Updates player information<br />
      * <p><b>Postcondition:</b> Updates player information</p>
@@ -663,10 +670,10 @@ public class GraphicUI extends JFrame {
         BillsP1.setText("Bills: " + game.p1.getBills() + " Euros");
         BillsP2.setText("Bills: " + game.p2.getBills() + " Euros");
     }
+
     /**
      * <b>transformer(mutative)</b>:initializes everything(labels,buttons) for both the Players <br />
      * <p><b>Postcondition:</b> initializes everything(labels,buttons) for both the Players</p>
-     *
      */
     private void PlayerPanel() {
         PlayerInformation();
@@ -675,24 +682,20 @@ public class GraphicUI extends JFrame {
          */
         P1.setLayout(new BorderLayout());
         P1.add(NameP1, BorderLayout.NORTH);
-
         JDesktopPane statsP1 = new JDesktopPane();
         statsP1.setLayout(new BoxLayout(statsP1, BoxLayout.Y_AXIS));
-
         MoneyP1.setEditable(false);
         MoneyP1.setOpaque(false);
         MoneyP1.setBorder(null);
         statsP1.add(MoneyP1);
-
-        LoanP1.setEditable(false);
-        LoanP1.setOpaque(false);
-        LoanP1.setBorder(null);
-        statsP1.add(LoanP1);
-
         BillsP1.setOpaque(false);
         BillsP1.setBorder(null);
         BillsP1.setEditable(false);
         statsP1.add(BillsP1);
+        LoanP1.setEditable(false);
+        LoanP1.setOpaque(false);
+        LoanP1.setBorder(null);
+        statsP1.add(LoanP1);
         DealCardsA.setText("My Deal Cards");
         DealCardsA.addActionListener(new ButtonListenerP1());
         statsP1.add(DealCardsA);
@@ -726,21 +729,18 @@ public class GraphicUI extends JFrame {
         MoneyP2.setOpaque(false);
         MoneyP2.setBorder(null);
         statsP2.add(MoneyP2);
-
-        LoanP2.setEditable(false);
-        LoanP2.setOpaque(false);
-        LoanP2.setBorder(null);
-        statsP2.add(LoanP2);
-
         BillsP2.setOpaque(false);
         BillsP2.setBorder(null);
         BillsP2.setEditable(false);
         statsP2.add(BillsP2);
+        LoanP2.setEditable(false);
+        LoanP2.setOpaque(false);
+        LoanP2.setBorder(null);
+        statsP2.add(LoanP2);
         DealCardsB.setText("My Deal Cards");
         DealCardsB.addActionListener(new ButtonListenerP2());
         statsP2.add(DealCardsB);
         P2.add(statsP2, BorderLayout.CENTER);
-
         JDesktopPane buttonsP2 = new JDesktopPane();
         GetLoanP2.setText("Get Loan");
         GetLoanP2.addActionListener(new ButtonListenerP2());
@@ -749,7 +749,6 @@ public class GraphicUI extends JFrame {
         buttonsP2.setLayout(new BoxLayout(buttonsP2, BoxLayout.X_AXIS));
         buttonsP2.add(GetLoanP2);
         buttonsP2.add(EndTurnP2);
-
         DiceP2.setBackground(Color.WHITE);
         DiceP2.setBorder(null);
         DiceP2.addActionListener(new DiceListener());
@@ -757,10 +756,10 @@ public class GraphicUI extends JFrame {
         P2.add(DiceP2, BorderLayout.EAST);
         P2.add(buttonsP2, BorderLayout.SOUTH);
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some action after a dice button has been pushed<br />
      * <p><b>Postcondition:</b> doing some action after a dice button has been pushed</p>
-     *
      */
     private class DiceListener implements ActionListener {
         Dice dicea = game.p1.getDice();
@@ -772,19 +771,19 @@ public class GraphicUI extends JFrame {
                 if (e.getSource() == DiceP1 && game.p1.get_HasPlayed()) {
                     DiceInformation(dicea.setRoll(), "P1");
                     DiceP1.setEnabled(false);
-                    if (game.table[game.p1.getPosition()] instanceof SweepstakesTile) {
-                        SweepstakesTile pos = (SweepstakesTile) game.table[game.p1.getPosition()];
-                        pos.TileAction(game.p1, dicea.getRollNumber());
-                        PlayerInformation();
-                        InfoboxInformation(game.p1.getName() + " Won " + dicea.getRollNumber() * 1000 + " E");
-                        game.p1.set_HasPlayed(false);
-                    } else if (game.table[game.p1.getPosition()] instanceof YardSaleTile) {
+                    if (game.table[game.p1.getPosition()] instanceof YardSaleTile) {
                         YardSaleTile pos = (YardSaleTile) game.table[game.p1.getPosition()];
                         DealCard C = game.DealDeck.getCard();
                         pos.TileAction(game.p1, dicea.getRollNumber(), C);
                         showDealCard(C, "");
                         PlayerInformation();
                         InfoboxInformation(game.p1.getName() + " bought this card for " + dicea.getRollNumber() * 100);
+                        game.p1.set_HasPlayed(false);
+                    } else if (game.table[game.p1.getPosition()] instanceof SweepstakesTile) {
+                        SweepstakesTile pos = (SweepstakesTile) game.table[game.p1.getPosition()];
+                        pos.TileAction(game.p1, dicea.getRollNumber());
+                        PlayerInformation();
+                        InfoboxInformation(game.p1.getName() + " Won " + dicea.getRollNumber() * 1000 + " E");
                         game.p1.set_HasPlayed(false);
                     }
                 } else if (e.getSource() == DiceP2 && game.p2.get_HasPlayed()) {
@@ -805,9 +804,9 @@ public class GraphicUI extends JFrame {
                         InfoboxInformation(game.p2.getName() + " bought this card for " + diceb.getRollNumber() * 100);
                         game.p2.set_HasPlayed(false);
                     }
-                } else if (RadioPos) {
+                } else if (isRadio) {
                     if (e.getSource() == DiceP1) {
-                        DiceInformation(dicea.setRoll(),"P1");
+                        DiceInformation(dicea.setRoll(), "P1");
                         DiceP1.setEnabled(false);
                     } else {
                         DiceInformation(diceb.setRoll(), "P2");
@@ -831,10 +830,10 @@ public class GraphicUI extends JFrame {
                                 PlayerInformation();
                                 InfoboxInformation("B won 1000 from Radio");
                             }
-                            RadioPos = false;
+                            isRadio = false;
                         }
                     }
-                } else if (LotteryPos) {
+                } else if (isLottery) {
                     if (e.getSource() == DiceP1) {
                         DiceInformation(dicea.setRoll(), "P1");
                         DiceP1.setEnabled(false);
@@ -842,7 +841,7 @@ public class GraphicUI extends JFrame {
                             game.p1.setMoney(1000);
                             PlayerInformation();
                             InfoboxInformation("A won 1000 from Lottery");
-                            LotteryPos = false;
+                            isLottery = false;
                         } else {
                             DiceP2.setEnabled(true);
                         }
@@ -853,7 +852,7 @@ public class GraphicUI extends JFrame {
                             game.p2.setMoney(1000);
                             PlayerInformation();
                             InfoboxInformation("B won 1000 from Lottery");
-                            LotteryPos = false;
+                            isLottery = false;
                         } else {
                             DiceP1.setEnabled(true);
                         }
@@ -864,10 +863,10 @@ public class GraphicUI extends JFrame {
             }
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:Changes player's pawn position <br />
      * <p><b>Postcondition:</b> Changes player's pawn position</p>
-     *
      */
     private void Move_Player(ActionEvent e) {
         Dice dicea = game.p1.getDice();
@@ -931,8 +930,8 @@ public class GraphicUI extends JFrame {
 
     /**
      * <b>Observer</b>:Checks both players dice roll and initializes the player with the bigger roll as first
-     *<b>Postcondition</b>Checks both players dice roll and initializes the player with the bigger roll as first
-     * */
+     * <b>Postcondition</b>Checks both players dice roll and initializes the player with the bigger roll as first
+     */
     public void Starts_First() {
         Dice dicea = game.p1.getDice();
         Dice diceb = game.p2.getDice();
@@ -960,10 +959,10 @@ public class GraphicUI extends JFrame {
             }
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:initializes buttons for both the dice <br />
      * <p><b>Postcondition:</b> initializes buttons for both the dice </p>
-     *
      */
     private void DiceInformation(int DiceRoll, String name) {
         if (name.equals("P1")) {
@@ -972,19 +971,20 @@ public class GraphicUI extends JFrame {
             image = new ImageIcon(imgURL).getImage();
             image = image.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
             DiceP1.setIcon(new ImageIcon(image));
-        } else if(name.equals("P2")){
-
+        } else if (name.equals("P2")) {
+            System.out.println(DiceRoll);
             imgURL = cldr.getResource("resources/images/dice-" + DiceRoll + ".jpg");
+            System.out.println(imgURL);
             image = new ImageIcon(imgURL).getImage();
             image = image.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
             DiceP2.setIcon(new ImageIcon(image));
 
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some action after Players 1 ,buttons have been pushed<br />
      * <p><b>Postcondition:</b> doing some action after Players 1 ,buttons have been pushed</p>
-     *
      */
     private class ButtonListenerP1 implements ActionListener {
 
@@ -995,7 +995,7 @@ public class GraphicUI extends JFrame {
                 if (command.equals("End Turn") && game.p1.getDice().getRolled()) {
                     if (game.p1.get_HasPlayed()) {
 
-                    } else if (RadioPos || LotteryPos) {
+                    } else if (isRadio || isLottery) {
 
                     } else if (game.p2.get_has_finished()) {
                         if (game.p1.get_has_finished()) {
@@ -1038,7 +1038,9 @@ public class GraphicUI extends JFrame {
         }
     }
 
-    /**<b>Transformer:</b>Creates a getloanpopup and gives player the option to take a loan
+    /**
+     * <b>Transformer:</b>Creates a getloanpopup and gives player the option to take a loan
+     *
      * @param p
      */
     public void GetLoan(Player p) {
@@ -1050,10 +1052,10 @@ public class GraphicUI extends JFrame {
             InfoboxInformation("Player " + p.getName() + " got " + Integer.parseInt(loan.getChoice()) + " loan");
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:doing some action after Players 2 ,buttons have been pushed<br />
      * <p><b>Postcondition:</b> doing some action after Players 2 ,buttons have been pushed</p>
-     *
      */
     private class ButtonListenerP2 implements ActionListener {
 
@@ -1065,11 +1067,11 @@ public class GraphicUI extends JFrame {
 
                     if (game.p2.get_HasPlayed()) {
 
-                    } else if (RadioPos || LotteryPos) {
+                    } else if (isRadio || isLottery) {
 
                     } else if (game.p1.get_has_finished()) {
                         if (game.p2.get_has_finished()) {
-                            InfoboxInformation("Game is prolly finished");
+                            InfoboxInformation("Game has probably finished");
                             game.p2.setTurn(false);
                         } else {
                             DiceP2.setEnabled(true);
@@ -1093,10 +1095,10 @@ public class GraphicUI extends JFrame {
             }
         }
     }
+
     /**
      * <b>transformer(mutative)</b>:initializes a menu<br />
      * <p><b>Postcondition:</b> initializes a menu </p>
-     *
      */
     public void CreateMenu() {
         JMenuItem items;
@@ -1116,7 +1118,6 @@ public class GraphicUI extends JFrame {
     /**
      * <b>transformer(mutative)</b>:doing some action after menu button have been pushed<br />
      * <p><b>Postcondition:</b> doing some action after menu button have been pushed</p>
-     *
      */
     private class Menulistener implements ActionListener {
 
@@ -1137,7 +1138,7 @@ public class GraphicUI extends JFrame {
                     }
                     break;
                 case "Save the Game":
-                    JOptionPane.showMessageDialog(null, "Save not implemented!","Save", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Save not implemented!", "Save", JOptionPane.ERROR_MESSAGE);
                 default:
                     break;
             }
@@ -1150,7 +1151,6 @@ public class GraphicUI extends JFrame {
     private void StartAll() {
         game.initialize_game();
         game.initialize_board();
-
         initialize_board_graphics();
         BasePanel.add(table);
 
